@@ -1,3 +1,4 @@
+SELECT * FROM tblitem; SELECT * from tblorder; SELECT * FROM tblorderitems;
 -------------------------------
 -- Number 2
 
@@ -6,6 +7,9 @@ INSERT INTO tblorder VALUES(
     (SELECT SUM(itemqtyprice) from tblitem WHERE itemname IN ("WcDough Burger", "WcDough Fries Regular", "WcDough Banana Pie")),
     CURDATE()
 );
+
+--
+
 
 -------------------------------
 -- Number 3
@@ -34,6 +38,8 @@ UPDATE tblitem SET itemdesc="Really spicy chicken sandwich!" WHERE itemname="WcD
 -------------------------------
 -- Number 8
 
+--
+SELECT DISTINCT itemno FROM tblorderitems;
 --
 DELETE FROM tblitem WHERE itemno NOT IN (SELECT DISTINCT itemno FROM tblorderitems);
 
