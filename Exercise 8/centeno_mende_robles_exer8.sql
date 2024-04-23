@@ -1,4 +1,9 @@
 -------------------------------
+-- Number 1
+
+INSERT INTO tblitem(itemname, itemqtyprice) VALUES("WcDough Hot 'n Spicy WcChicken", 65);
+
+-------------------------------
 -- Number 2
 
 INSERT INTO tblorder VALUES(
@@ -21,10 +26,10 @@ INSERT INTO tblorderitems VALUES
 update tblorder set ordertotalprice=(select sum(itemtotalprice) from tblorderitems where orderno=6) where orderno=6;
 -------------------------------
 -- Number 5
-update tblitem set itemqtyprice=itemqtyprice+(itemqtyprice*0.5);
+update tblitem set itemqtyprice=itemqtyprice+(itemqtyprice*0.05);
 -------------------------------
 -- Number 6
-update tblorderitems set itemqty=itemqty*2, itemtotalprice=110  where orderno=3 and itemno=4;
+update tblorderitems set itemqty=itemqty*2, itemtotalprice=110  where orderno=3 and itemno=(SELECT itemno from tblitem WHERE itemname="WcDough Cheese Burger");
 -------------------------------
 
 -- Number 7

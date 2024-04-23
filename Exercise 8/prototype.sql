@@ -48,6 +48,8 @@ DELETE FROM tblitem WHERE itemno NOT IN (SELECT DISTINCT itemno FROM tblorderite
 
 --
 DELETE FROM tblorderitems WHERE itemqty=2;
+
+DELETE FROM tblorderitems WHERE orderno IN (SELECT orderno from tblorderitems GROUP BY orderno having SUM(itemqty)=2);
 -------------------------------
 -- Number 10
 
