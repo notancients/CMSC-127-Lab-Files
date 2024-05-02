@@ -13,28 +13,6 @@ CREATE TABLE unit (
 
 -- Number 2
 
--- v1
-CREATE TABLE teacher (
-    first_name VARCHAR(255),
-    last_name VARCHAR(255),
-    birthday DATE,
-    employee_number VARCHAR(8),
-    CONSTRAINT employee_number_pk PRIMARY KEY (
-        YEAR(birthday), DAY(birthday), MONTH(birthday) 
-    )
-);
-
--- v2
-CREATE TABLE teacher (
-    first_name VARCHAR(255),
-    last_name VARCHAR(255),
-    birthday DATE,
-    employee_number VARCHAR(8),
-    degree VARCHAR(10),
-    CONSTRAINT employee_number_pk PRIMARY KEY (employee_number),
-    CONTRAINT degree_fk FOREIGN KEY(degree) REFERENCES student(degree)
-);
-
 -- v3
 CREATE TABLE teacher (
     employee_number VARCHAR(8),
@@ -51,13 +29,6 @@ CREATE TABLE teacher (
     s.bday AS birthday,
     s.degree
 FROM student s);
-
--- v4
--- CREATE TABLE teacher AS (
---     SELECT fname, lname, bday, degree, CONCAT(YEAR(bday), DAY(bday), MONTH(bday)) as employee_number
---     from student
---     ),
---     CONSTRAINT employee_number_pk PRIMARY KEY(`employee_number`);
 
 -- Number 3
 
@@ -82,13 +53,20 @@ ADD CONSTRAINT unit_fk FOREIGN KEY(unit) REFERENCES degreeprog(degree);
 CREATE VIEW average_units_earned_view(degree, average) AS (SELECT s.degree, AVG(s.unitsearned) FROM student s GROUP BY s.degree);
 
 -- Number 7
-
+ALTER TABLE teacher DROP `birthday`;
 
 -- Number 8
+
+CREATE OR REPLACE VIEW average_units_earned_view(offering_college, degree, average)
+AS (SELECT d.offeringcollege, s.degree, AVG(s.unitsearned) FROM student s, degreeprog d
+WHERE d.degree = s.degree
+GROUP BY s.degree);
+
 
 
 -- Number 9
 
-
+ALTER TABLE unit DROP FOREIGN KEY college_name_fk;
 -- Number 10
 
+DROP TABLE unit;
